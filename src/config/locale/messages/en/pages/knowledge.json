@@ -1,0 +1,30 @@
+{
+  "title": "Knowledge Base Upload",
+  "description": "Upload PDF documents to train your AI Agent.",
+  "dropzone": {
+    "text": "Drag and drop your PDF file here, or click to select.",
+    "subtext": "(Supported format: .pdf only, max 10MB)",
+    "button": "Select File"
+  },
+  "button": {
+    "idle": "Upload to Knowledge Base",
+    "uploading": "Uploading & Indexing..."
+  },
+  "messages": {
+    "success": "Document successfully uploaded and indexed.",
+    "error": "Upload failed. Please try again."
+  },
+  "errors": {
+    "fileType": "Only PDF files are supported.",
+    "fileSize": "File size must be less than 10MB.",
+    "unauthorized": "You must be logged in to upload.",
+    "generic": "An error occurred during upload."
+  },
+  "search": {
+    "placeholder": "Search knowledge (e.g., Trench Coat Size)",
+    "button": "Search",
+    "searching": "Searching...",
+    "resultsTitle": "Search Results",
+    "empty": "No results yet."
+  }
+}

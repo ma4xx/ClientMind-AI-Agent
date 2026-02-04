@@ -1,0 +1,30 @@
+{
+  "title": "知识库上传",
+  "description": "上传 PDF 文档以训练您的 AI 智能体。",
+  "dropzone": {
+    "text": "将 PDF 文件拖放到此处，或点击选择。",
+    "subtext": "（支持格式：仅限 .pdf，最大 10MB）",
+    "button": "选择文件"
+  },
+  "button": {
+    "idle": "上传至知识库",
+    "uploading": "正在上传并索引..."
+  },
+  "messages": {
+    "success": "文档已成功上传并索引。",
+    "error": "上传失败，请重试。"
+  },
+  "errors": {
+    "fileType": "仅支持 PDF 文件。",
+    "fileSize": "文件大小必须小于 10MB。",
+    "unauthorized": "您必须登录后才能上传。",
+    "generic": "上传过程中发生错误。"
+  },
+  "search": {
+    "placeholder": "搜索知识库（例如：风衣尺码）",
+    "button": "搜索",
+    "searching": "正在搜索...",
+    "resultsTitle": "搜索结果",
+    "empty": "暂无结果。"
+  }
+}

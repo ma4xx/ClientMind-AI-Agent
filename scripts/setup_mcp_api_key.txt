@@ -1,0 +1,24 @@
+# Run this in Kibana Dev Tools (Console) to generate an API Key for MCP Server
+
+POST /_security/api_key
+{
+  "name": "clientmind-mcp-key",
+  "role_descriptors": {
+    "mcp_access": {
+      "cluster": ["monitor"],
+      "index": [
+        {
+          "names": ["clientmind_knowledge", "clientmind_persona", "clientmind_interactions"],
+          "privileges": ["read", "write", "create_doc", "view_index_metadata"]
+        }
+      ],
+      "applications": [
+        {
+          "application": "kibana-.kibana",
+          "privileges": ["feature_agent_builder.read"],
+          "resources": ["*"]
+        }
+      ]
+    }
+  }
+}

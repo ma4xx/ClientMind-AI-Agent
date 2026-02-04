@@ -1,0 +1,94 @@
+{
+  "crumbs": {
+    "admin": "管理后台",
+    "operations": "运营控制"
+  },
+  "events": {
+    "title": "事件流",
+    "description": "实时监控草稿生命周期与审批事件。",
+    "searchPlaceholder": "按邮箱、主题、草稿ID搜索",
+    "statusAll": "全部状态",
+    "statusPending": "待处理",
+    "statusApproved": "已通过",
+    "statusRejected": "已拒绝",
+    "table": {
+      "draftId": "草稿ID",
+      "status": "状态",
+      "customer": "客户邮箱",
+      "subject": "主题",
+      "createdAt": "创建时间",
+      "approvedBy": "审批人",
+      "approvedAt": "审批时间"
+    },
+    "empty": "暂无事件"
+  },
+  "drafts": {
+    "title": "草稿与审批",
+    "description": "审阅草稿、编辑回复并完成审批。",
+    "pendingOnly": "仅显示待处理",
+    "empty": "暂无草稿"
+  },
+  "console": {
+    "title": "Agent 控制台",
+    "description": "关键沟通场景的人机回环控制中心。"
+  },
+  "knowledge": {
+    "title": "知识库",
+    "description": "上传资料并验证检索结果。"
+  },
+  "settings": {
+    "title": "运营设置",
+    "description": "管理人设与审批规则。",
+    "save": "保存更改",
+    "saving": "保存中...",
+    "toastSuccess": "设置已更新。",
+    "toastError": "保存失败。",
+    "pageTitle": "设置",
+    "pageDescription": "配置智能体的人设与系统行为。",
+    "defaults": {
+      "agentName": "Jessica from Support"
+    },
+    "errors": {
+      "noAuth": "请先登录后再访问此页面。"
+    },
+    "cards": {
+      "agentPersona": {
+        "title": "智能体人设",
+        "description": "定义 AI 与客户沟通时的呈现方式。",
+        "nameLabel": "智能体名称",
+        "namePlaceholder": "例如：Jessica from Support",
+        "nameHelper": "该名称将出现在邮件签名中。",
+        "toneLabel": "语气风格",
+        "tone": {
+          "friendly": "亲切",
+          "professional": "专业"
+        },
+        "tonePreviewLabel": "语气预览",
+        "tonePreviewMessage": "你好！我可以帮你做些什么？😊 我很乐意帮你查看！"
+      },
+      "dataConnection": {
+        "title": "数据连接",
+        "description": "Elasticsearch Brain 连接状态。",
+        "memoryEngine": "记忆引擎（Elasticsearch）",
+        "clusterLabel": "集群：{name}",
+        "status": {
+          "loading": "加载中...",
+          "unknown": "未知"
+        },
+        "knowledgeIndexTitle": "知识库索引",
+        "knowledgeIndexLabel": "索引：clientmind_knowledge（{count} 条）",
+        "syncNow": "立即同步"
+      },
+      "safety": {
+        "title": "安全与控制",
+        "description": "人类介入控制设置。",
+        "autoSendLabel": "自动发送模式",
+        "autoSendDescription": "置信度超过 95% 时自动发送回复。"
+      }
+    }
+  },
+  "moved": {
+    "title": "该页面已迁移",
+    "description": "请使用管理后台的运营设置。"
+  }
+}

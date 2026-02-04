@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "elastic-agent": {
+      "command": "npx",
+      "args": ["@elastic/mcp-server-elasticsearch"],
+      "env": {
+        "ELASTICSEARCH_URL": "https://my-elasticsearch-project-ae27b8.es.us-east-1.aws.elastic.cloud:443",
+        "ELASTIC_URL": "https://my-elasticsearch-project-ae27b8.es.us-east-1.aws.elastic.cloud:443",
+        "ES_URL": "https://my-elasticsearch-project-ae27b8.es.us-east-1.aws.elastic.cloud:443",
+        "ELASTIC_API_KEY": "TmxaS0E1d0JkZmxZNEY1WTB3YjE6N1B6Sl9jRHRYZURCRUhIRlJnYW4xdw=="
+      }
+    }
+  }
+}

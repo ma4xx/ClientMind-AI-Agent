@@ -1,0 +1,52 @@
+{
+  "description": "Tools configuration for Elastic Agent Builder. Import or copy-paste these definitions.",
+  "tools": [
+    {
+      "name": "lookup_customer_history",
+      "description": "Retrieves customer profile, preferences, and interaction history from the database.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The customer's email address."
+          }
+        },
+        "required": ["email"]
+      },
+      "definition": {
+        "esql": {
+          "query": "FROM clientmind_persona | WHERE email == \"?\" | LIMIT 1",
+          "params": ["email"]
+        }
+      }
+    },
+    {
+      "name": "search_knowledge_base",
+      "description": "Searches the company knowledge base (policies, product info) using semantic search.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search query text."
+          }
+        },
+        "required": ["query"]
+      },
+      "definition": {
+        "retrieval": {
+          "index": "clientmind_knowledge",
+          "field": "content_embedding",
+          "query_field": "query",
+          "k": 5,
+          "semantic_text": false, 
+          "text_expansion": {
+              "model_id": ".elser_model_2_linux-x86_64",
+              "model_text": "?"
+          }
+        }
+      }
+    }
+  ]
+}

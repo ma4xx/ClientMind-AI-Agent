@@ -1,0 +1,94 @@
+{
+  "crumbs": {
+    "admin": "Admin",
+    "operations": "Operations"
+  },
+  "events": {
+    "title": "Event Stream",
+    "description": "Monitor draft lifecycle and approval events in real time.",
+    "searchPlaceholder": "Search by email, subject, draft id",
+    "statusAll": "All statuses",
+    "statusPending": "Pending",
+    "statusApproved": "Approved",
+    "statusRejected": "Rejected",
+    "table": {
+      "draftId": "Draft ID",
+      "status": "Status",
+      "customer": "Customer",
+      "subject": "Subject",
+      "createdAt": "Created At",
+      "approvedBy": "Approved By",
+      "approvedAt": "Approved At"
+    },
+    "empty": "No events found"
+  },
+  "drafts": {
+    "title": "Drafts & Approvals",
+    "description": "Review drafts, edit responses, and approve for delivery.",
+    "pendingOnly": "Pending only",
+    "empty": "No drafts available"
+  },
+  "console": {
+    "title": "Agent Console",
+    "description": "Human-in-the-loop control center for critical communications."
+  },
+  "knowledge": {
+    "title": "Knowledge Base",
+    "description": "Upload documents and validate retrieval results."
+  },
+  "settings": {
+    "title": "Operations Settings",
+    "description": "Manage agent persona and approval rules.",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "toastSuccess": "Settings updated.",
+    "toastError": "Save failed.",
+    "pageTitle": "Settings",
+    "pageDescription": "Configure your Agent's persona and system behavior.",
+    "defaults": {
+      "agentName": "Jessica from Support"
+    },
+    "errors": {
+      "noAuth": "You must be logged in to access this page."
+    },
+    "cards": {
+      "agentPersona": {
+        "title": "Agent Persona",
+        "description": "Define how the AI presents itself to customers.",
+        "nameLabel": "Agent Name",
+        "namePlaceholder": "e.g. Jessica from Support",
+        "nameHelper": "This name will appear in email signatures.",
+        "toneLabel": "Tone of Voice",
+        "tone": {
+          "friendly": "Friendly",
+          "professional": "Professional"
+        },
+        "tonePreviewLabel": "Tone Preview",
+        "tonePreviewMessage": "Hello! How can I help you today? 😊 I'd be happy to check that for you!"
+      },
+      "dataConnection": {
+        "title": "Data Connection",
+        "description": "Status of your Elasticsearch Brain connection.",
+        "memoryEngine": "Memory Engine (Elasticsearch)",
+        "clusterLabel": "Cluster: {name}",
+        "status": {
+          "loading": "Loading...",
+          "unknown": "Unknown"
+        },
+        "knowledgeIndexTitle": "Knowledge Base Index",
+        "knowledgeIndexLabel": "Index: clientmind_knowledge ({count} Documents)",
+        "syncNow": "Sync Now"
+      },
+      "safety": {
+        "title": "Safety & Control",
+        "description": "Human-in-the-Loop settings.",
+        "autoSendLabel": "Auto-Send Mode",
+        "autoSendDescription": "Automatically send replies with confidence score > 95%."
+      }
+    }
+  },
+  "moved": {
+    "title": "This page has moved",
+    "description": "Please use the admin operations settings page."
+  }
+}

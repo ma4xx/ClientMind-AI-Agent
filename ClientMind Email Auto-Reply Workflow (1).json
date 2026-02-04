@@ -1,0 +1,285 @@
+{
+  "name": "ClientMind Email Auto-Reply Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {
+          "labelIds": ["INBOX", "UNREAD"]
+        }
+      },
+      "id": "dd18ec63-1da1-462a-a4b1-59a6472d8a78",
+      "name": "Gmail Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1,
+      "position": [-656, 112],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "qYJMJdo6MuyoP4RF",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.data.result.is_inquiry }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "c4b7cd0c-f678-422d-837e-8ef5ff5c8a46",
+      "name": "Is Inquiry?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [-176, 128]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/rag/dual",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"customer_email\": \"{{ $('Gmail Trigger').item.json.From.match(/<(.+)>/)?.[1] || $('Gmail Trigger').item.json.From }}\",\n  \"query_text\": \"{{ $('Gmail Trigger').item.json.snippet }}\",\n  \"top_k\": 3\n}",
+        "options": {}
+      },
+      "id": "255a9008-75bd-481b-bfd5-9ce11e817d3d",
+      "name": "Dual-RAG Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [208, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/draft/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n\n{\n\n\"email\": {\n\n\"email_id\": $('Gmail Trigger').item.json.id,\n\n\"subject\": $('Gmail Trigger').item.json.Subject,\n\n\"body\": $('Gmail Trigger').item.json.snippet,\n\n\"from\": $('Gmail Trigger').item.json.From.match(/<(.+)>/)?.[1] || $('Gmail Trigger').item.json.From\n\n},\n\n\"memory\": $json.data.memory,\n\n\"knowledge\": {\n\n\"hits\": $json.data.knowledge.hits\n\n},\n\n\"persona_config\": {\n\n\"agent_name\": \"ClientMind Assistant\",\n\n\"tone\": \"professional yet friendly\"\n\n}\n\n}\n\n}}",
+        "options": {}
+      },
+      "id": "a2208876-652e-4453-96cd-34a4d44ff2f1",
+      "name": "Generate Draft",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [432, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/classify",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model_id\": \".anthropic-claude-3.7-sonnet-chat_completion\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an email intent classifier for a cross-border e-commerce company. Your task is to determine if an incoming email is a valid 'Customer Inquiry' (Pre-sales or Post-sales). Rules: 1. TRUE (Is Inquiry): Pre-sales (product specs, stock, shipping) or Post-sales (order status, returns, quality). 2. FALSE (Not Inquiry): Platform Notifications, Spam/Marketing, Auto-replies. Output Format: Return ONLY a raw JSON object: {\\\"is_inquiry\\\": boolean, \\\"reason\\\": \\\"string\\\"}.\\n\\nIncoming Email Details:\\nSubject: {{ $json.Subject }}\\nContent Snippet: {{ $json.snippet }}\" \n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [-448, 112],
+      "id": "f39b919c-37c9-4f88-8e67-e3f9d09fc3ff",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/draft/hold",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "draft_id",
+              "value": "={{ $('Generate Draft').item.json.data.draft_id }}"
+            },
+            {
+              "name": "n8n_callback_url",
+              "value": "={{ $execution.resumeUrl }}"
+            },
+            {
+              "name": "email_id",
+              "value": "={{ $('Gmail Trigger').item.json.id }}"
+            },
+            {
+              "name": "customer_email",
+              "value": "={{ $('Gmail Trigger').item.json.From.match(/<(.+)>/)?.[1] || $('Gmail Trigger').item.json.From }}"
+            },
+            {
+              "name": "subject",
+              "value": "={{ $('Gmail Trigger').item.json.Subject }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [624, 192],
+      "id": "ad0ba6e5-8976-4fc4-aec6-f73d1de4ea24",
+      "name": "Save Callback"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/draft/approve",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "draft_id",
+              "value": "={{ $('Generate Draft').item.json.data.draft_id }}"
+            },
+            {
+              "name": "approved_by",
+              "value": "={{ $execution.resumeUrl }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [1168, 352],
+      "id": "bf5f025a-4539-41e9-a18a-9224a9967e42",
+      "name": "Approve & Send"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [832, 192],
+      "id": "0229c618-ee8e-4469-a9e8-1feb5af31d33",
+      "name": "Wait for Approval",
+      "webhookId": "1b2f55f7-06aa-4c20-ad46-f69ee1f169ec"
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "message": "={{ $json.draft_content }}",
+        "options": {
+          "threadId": "={{ $('Gmail Trigger').item.json.threadId }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [1200, 176],
+      "id": "f443bb37-ec05-493f-9bf9-1c4d729b9368",
+      "name": "Reply to a message",
+      "webhookId": "98fd167c-415c-441b-842b-ccdbb10ae4f9",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "qYJMJdo6MuyoP4RF",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Inquiry?": {
+      "main": [
+        [
+          {
+            "node": "Dual-RAG Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dual-RAG Search": {
+      "main": [
+        [
+          {
+            "node": "Generate Draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Is Inquiry?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Draft": {
+      "main": [
+        [
+          {
+            "node": "Save Callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Callback": {
+      "main": [
+        [
+          {
+            "node": "Wait for Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Approval": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approve & Send": {
+      "main": [[]]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "0407f34a-c22d-441c-87e6-e8d9d224da57",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e9e67d46a7ab0c5eebed8afb81e2812e447f0737adcd63258e4c2c237b24acd3"
+  },
+  "id": "TGEfdebk9te4s7zMSp08S",
+  "tags": []
+}
