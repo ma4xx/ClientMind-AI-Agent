@@ -65,3 +65,14 @@ src/config/db/migrations*
 .source
 
 .chats
+
+# AI Agent Rules & Workspace
+.trae/
+agent-builder/
+
+# Data & Temp
+Fashion_Ecommerce_Customer_Service_Knowledge_Base.pdf
+local.db
+local.db-journal
+*.log
+scripts/seed_knowledge.ts
