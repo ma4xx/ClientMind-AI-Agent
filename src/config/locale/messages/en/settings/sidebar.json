@@ -8,24 +8,14 @@
         "icon": "User"
       },
       {
-        "title": "Billing",
-        "url": "/settings/billing",
-        "icon": "CreditCard"
-      },
-      {
-        "title": "Payments",
-        "url": "/settings/payments",
-        "icon": "DollarSign"
-      },
-      {
-        "title": "Credits",
-        "url": "/settings/credits",
-        "icon": "Coins"
-      },
-      {
         "title": "API Keys",
         "url": "/settings/apikeys",
         "icon": "RiKeyLine"
+      },
+      {
+        "title": "Security",
+        "url": "/settings/security",
+        "icon": "ShieldCheck"
       }
     ]
   },

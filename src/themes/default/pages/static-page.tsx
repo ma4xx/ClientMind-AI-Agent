@@ -1,12 +1,12 @@
 import { getThemeBlock } from '@/core/theme';
-import { Post as PostType } from '@/shared/types/blocks/blog';
+import { type PageContent } from '@/themes/default/blocks/page-detail';
 
 export default async function StaticPage({
   locale,
   post,
 }: {
   locale?: string;
-  post: PostType;
+  post: PageContent;
 }) {
   const PageDetail = await getThemeBlock('page-detail');
 

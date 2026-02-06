@@ -127,22 +127,6 @@ const defaultPermissions = [
     description: 'View subscription list and details',
   },
 
-  // Credits management
-  {
-    code: 'admin.credits.read',
-    resource: 'credits',
-    action: 'read',
-    title: 'Read Credits',
-    description: 'View credit list and details',
-  },
-  {
-    code: 'admin.credits.write',
-    resource: 'credits',
-    action: 'write',
-    title: 'Write Credits',
-    description: 'Grant or consume credits',
-  },
-
   // API Keys management
   {
     code: 'admin.apikeys.read',
@@ -284,7 +268,6 @@ const defaultRoles = [
       'admin.categories.*',
       'admin.payments.*',
       'admin.subscriptions.*',
-      'admin.credits.*',
       'admin.apikeys.*',
       'admin.settings.read',
       'admin.ai-tasks.*',
@@ -317,7 +300,6 @@ const defaultRoles = [
       'admin.categories.read',
       'admin.payments.read',
       'admin.subscriptions.read',
-      'admin.credits.read',
     ],
   },
 ];

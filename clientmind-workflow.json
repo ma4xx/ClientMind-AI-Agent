@@ -21,7 +21,7 @@
       "position": [-656, 112],
       "credentials": {
         "gmailOAuth2": {
-          "id": "qYJMJdo6MuyoP4RF",
+          "id": "YOUR_GMAIL_CREDENTIAL_ID",
           "name": "Gmail account"
         }
       }
@@ -127,31 +127,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "http://localhost:3000/api/draft/approve",
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "draft_id",
-              "value": "={{ $('Generate Draft').item.json.data.draft_id }}"
-            },
-            {
-              "name": "approved_by",
-              "value": "={{ $execution.resumeUrl }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.4,
-      "position": [1168, 352],
-      "id": "bf5f025a-4539-41e9-a18a-9224a9967e42",
-      "name": "Approve & Send"
-    },
-    {
-      "parameters": {
         "resume": "webhook",
         "httpMethod": "POST",
         "options": {}
@@ -167,10 +142,8 @@
       "parameters": {
         "operation": "reply",
         "messageId": "={{ $('Gmail Trigger').item.json.id }}",
-        "message": "={{ $json.draft_content }}",
-        "options": {
-          "threadId": "={{ $('Gmail Trigger').item.json.threadId }}"
-        }
+        "message": "={{ $json.body.draft_content }}",
+        "options": {}
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
@@ -180,7 +153,7 @@
       "webhookId": "98fd167c-415c-441b-842b-ccdbb10ae4f9",
       "credentials": {
         "gmailOAuth2": {
-          "id": "qYJMJdo6MuyoP4RF",
+          "id": "YOUR_GMAIL_CREDENTIAL_ID",
           "name": "Gmail account"
         }
       }
@@ -264,9 +237,6 @@
           }
         ]
       ]
-    },
-    "Approve & Send": {
-      "main": [[]]
     }
   },
   "active": true,
@@ -275,10 +245,9 @@
     "availableInMCP": false,
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "0407f34a-c22d-441c-87e6-e8d9d224da57",
+  "versionId": "0c3c073c-08af-47fa-b983-47290c2f1474",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "e9e67d46a7ab0c5eebed8afb81e2812e447f0737adcd63258e4c2c237b24acd3"
+    "templateCredsSetupCompleted": true
   },
   "id": "TGEfdebk9te4s7zMSp08S",
   "tags": []

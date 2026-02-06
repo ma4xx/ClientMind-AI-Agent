@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "ShipAny Template Two",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups. Ship Fast with a variety of templates and components.",
-    "keywords": "shipany, shipany-boilerplate, shipany-template-two-demo"
+    "title": "ClientMind AI Agent",
+    "description": "ClientMind AI Agent is a NextJS boilerplate for building AI SaaS startups. Ship Fast with a variety of templates and components.",
+    "keywords": "clientmind, clientmind-boilerplate, clientmind-ai-agent"
   },
   "sign": {
     "sign_in_title": "Sign In",
@@ -24,12 +24,10 @@
     "close_title": "Close",
     "cancel_title": "Cancel",
     "sign_out_title": "Sign Out",
-    "billing_title": "Billing",
     "name_title": "Name",
     "name_placeholder": "Input your name here",
     "email_verification_hint": "Use an email address you can access. You must verify your email after signing up.",
     "admin_title": "Admin System",
-    "credits_title": "Credits: {credits}",
     "verify_email_sent": "Verification email sent. Please check your inbox.",
     "verify_email_required": "Please verify your email address before signing in.",
     "resend_verification": "Resend verification email",
@@ -43,11 +41,6 @@
     "resend_verification_countdown": "Resend verification email ({seconds}s)",
     "resend_verification_wait": "Please wait {seconds}s before resending.",
     "back_to_sign_in": "Back to Sign In"
-  },
-  "payment": {
-    "choose_payment_method": "Choose Payment Method",
-    "choose_payment_method_description": "",
-    "cancel_title": "Cancel"
   },
   "locale_detector": {
     "title": "We detected your browser language is {locale}. Switch to it?",

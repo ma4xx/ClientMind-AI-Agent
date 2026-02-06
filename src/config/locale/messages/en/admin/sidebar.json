@@ -1,10 +1,10 @@
 {
   "header": {
     "brand": {
-      "title": "ShipAny Two",
+      "title": "ClientMind AI Agent",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny Two"
+        "alt": "ClientMind AI Agent"
       },
       "url": "/admin"
     },
@@ -12,113 +12,42 @@
   },
   "main_navs": [
     {
-      "title": "System",
+      "title": "System Management",
       "items": [
         {
-          "title": "Users & Permissions",
-          "icon": "User",
-          "is_expand": true,
-          "children": [
-            {
-              "title": "Users",
-              "url": "/admin/users",
-              "icon": "User"
-            },
-            {
-              "title": "Roles",
-              "url": "/admin/roles",
-              "icon": "Users"
-            },
-            {
-              "title": "Permissions",
-              "url": "/admin/permissions",
-              "icon": "ShieldCheck"
-            }
-          ]
+          "title": "Users",
+          "url": "/admin/users",
+          "icon": "User"
         },
         {
-          "title": "Pages & Content",
-          "icon": "FileText",
-          "children": [
-            {
-              "title": "Categories",
-              "icon": "Folder",
-              "url": "/admin/categories"
-            },
-            {
-              "title": "Posts",
-              "icon": "FileText",
-              "url": "/admin/posts"
-            }
-          ]
-        },
-        {
-          "title": "Payments & Credits",
-          "icon": "DollarSign",
-          "children": [
-            {
-              "title": "Payments",
-              "url": "/admin/payments",
-              "icon": "DollarSign"
-            },
-            {
-              "title": "Subscriptions",
-              "url": "/admin/subscriptions",
-              "icon": "CreditCard"
-            },
-            {
-              "title": "Credits",
-              "url": "/admin/credits",
-              "icon": "Coins"
-            }
-          ]
+          "title": "API Keys",
+          "url": "/admin/apikeys",
+          "icon": "Key"
         }
       ]
     },
     {
-      "title": "Business",
+      "title": "Agent Core Business",
       "items": [
         {
-          "title": "AI Tasks",
-          "url": "/admin/ai-tasks",
-          "icon": "Brain"
+          "title": "Drafts & Approvals",
+          "url": "/admin/operations/drafts",
+          "icon": "ClipboardCheck"
         },
         {
-          "title": "AI Chats",
-          "url": "/admin/chats",
-          "icon": "MessageCircle"
+          "title": "Event Stream",
+          "url": "/admin/operations/events",
+          "icon": "Activity"
         },
         {
-          "title": "Operations",
-          "icon": "Activity",
-          "is_expand": true,
-          "children": [
-            {
-              "title": "Event Stream",
-              "url": "/admin/operations/events",
-              "icon": "Activity"
-            },
-            {
-              "title": "Drafts & Approvals",
-              "url": "/admin/operations/drafts",
-              "icon": "ClipboardCheck"
-            },
-            {
-              "title": "Agent Console",
-              "url": "/admin/operations/console",
-              "icon": "Bot"
-            },
-            {
-              "title": "Knowledge Base",
-              "url": "/admin/operations/knowledge",
-              "icon": "BookOpen"
-            },
-            {
-              "title": "Operations Settings",
-              "url": "/admin/operations/settings",
-              "icon": "Settings"
-            }
-          ]
+          "title": "Knowledge Base",
+          "url": "/admin/operations/knowledge",
+          "icon": "BookOpen"
+        },
+        {
+          "title": "Agent Console",
+          "url": "/admin/operations/console",
+          "icon": "Bot"
         }
       ]
     }
@@ -126,14 +55,9 @@
   "bottom_nav": {
     "items": [
       {
-        "title": "Settings",
+        "title": "System Settings",
         "url": "/admin/settings/general",
         "icon": "Settings"
-      },
-      {
-        "title": "API Keys",
-        "url": "/admin/apikeys",
-        "icon": "Key"
       }
     ]
   },

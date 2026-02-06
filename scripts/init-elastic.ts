@@ -1,11 +1,11 @@
 import { Client } from '@elastic/elasticsearch';
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 if (!process.env.ELASTIC_CLOUD_URL || !process.env.ELASTIC_API_KEY) {
   console.error(
-    '❌ Missing ELASTIC_CLOUD_URL or ELASTIC_API_KEY in .env.local'
+    '❌ Missing ELASTIC_CLOUD_URL or ELASTIC_API_KEY in .env'
   );
   process.exit(1);
 }
@@ -226,6 +226,40 @@ async function createIndices() {
     console.log('✅ Pipeline updated with correct inference config.');
   } catch (e) {
     console.error('Pipeline update failed', e);
+  }
+
+  // Create a simpler pipeline for text chunks (inference only)
+  console.log('🔄 Creating Ingest Pipeline: clientmind_chunk_processor...');
+  try {
+    await client.ingest.putPipeline({
+      id: 'clientmind_chunk_processor',
+      description: 'Generate ELSER embeddings for text chunks',
+      processors: [
+        {
+          inference: {
+            model_id: '.elser_model_2_linux-x86_64',
+            target_field: 'content_embedding',
+            field_map: {
+              chunk_text: 'text_field',
+            },
+            inference_config: {
+              // @ts-ignore
+              text_expansion: {
+                results_field: 'predicted_value',
+              },
+            },
+          },
+        },
+        {
+          script: {
+            source: 'ctx.content_embedding = ctx.content_embedding.predicted_value',
+          },
+        },
+      ],
+    });
+    console.log('✅ Pipeline clientmind_chunk_processor created successfully.');
+  } catch (e) {
+    console.error('❌ Failed to create clientmind_chunk_processor:', e);
   }
 
   const indices: Array<{ name: string; mappings: Record<string, unknown> }> = [

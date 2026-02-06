@@ -66,28 +66,6 @@ export function SignUp({
     return path;
   };
 
-  const reportAffiliate = ({
-    userEmail,
-    stripeCustomerId,
-  }: {
-    userEmail: string;
-    stripeCustomerId?: string;
-  }) => {
-    if (typeof window === 'undefined' || !configs) {
-      return;
-    }
-
-    const windowObject = window as any;
-
-    if (configs.affonso_enabled === 'true' && windowObject.Affonso) {
-      windowObject.Affonso.signup(userEmail);
-    }
-
-    if (configs.promotekit_enabled === 'true' && windowObject.promotekit) {
-      windowObject.promotekit.refer(userEmail, stripeCustomerId);
-    }
-  };
-
   const handleSignUp = async () => {
     if (loading) {
       return;
@@ -98,59 +76,27 @@ export function SignUp({
       return;
     }
 
-    // Set loading immediately to avoid duplicate submits before request hooks fire.
-    setLoading(true);
-
     try {
-      await signUp.email(
-        {
-          email,
-          password,
-          name,
-        },
-        {
-          onRequest: (ctx) => {
-            // loading is already set above; keep as no-op for safety
-          },
-          onResponse: (ctx) => {
-            // Do NOT reset loading here; navigation may not have completed yet.
-          },
-          onSuccess: (ctx) => {
-            // report affiliate
-            reportAffiliate({ userEmail: email });
+      setLoading(true);
+      const { data, error } = await signUp.email({
+        email,
+        password,
+        name,
+        callbackURL: callbackUrl,
+      });
 
-            const emailVerificationEnabled =
-              configs.email_verification_enabled === 'true';
+      if (error) {
+        throw error;
+      }
 
-            if (emailVerificationEnabled) {
-              const normalizedCallbackUrl = stripLocalePrefix(callbackUrl);
-              const verifyPath = `/verify-email?sent=1&email=${encodeURIComponent(
-                email
-              )}&callbackUrl=${encodeURIComponent(normalizedCallbackUrl)}`;
+      toast.success(t('success'));
 
-            // IMPORTANT: callbackURL must not contain its own '&' query params.
-            // We redirect to home/callbackUrl after verification; verify page is just the waiting UI.
-              void authClient.sendVerificationEmail({
-                email,
-              callbackURL: `${base}${normalizedCallbackUrl || '/'}`,
-              });
-
-              // next/navigation router expects fully qualified path (including locale when non-default)
-              router.push(`${base}${verifyPath}`);
-              return;
-            }
-
-            router.push(callbackUrl);
-          },
-          onError: (e: any) => {
-            toast.error(e?.error?.message || 'sign up failed');
-            setLoading(false);
-          },
-        }
-      );
+      if (!emailVerificationEnabled) {
+        router.push(callbackUrl);
+      }
     } catch (e: any) {
-      toast.error(e?.message || 'sign up failed');
       setLoading(false);
+      toast.error(e.message || t('failed'));
     }
   };
 

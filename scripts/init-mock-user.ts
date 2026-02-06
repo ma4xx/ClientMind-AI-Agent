@@ -3,7 +3,7 @@ import { user } from '../src/config/db/schema';
 import { eq } from 'drizzle-orm';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 async function main() {
   console.log('Checking for mock user...');

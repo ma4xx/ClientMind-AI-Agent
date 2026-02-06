@@ -7,16 +7,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { elasticClient } from '../src/lib/elastic/client';
 
-// Load environment variables from .env.local BEFORE other imports
-const envPath = path.resolve(__dirname, '../.env.local');
-console.log(`Loading .env.local from: ${envPath}`);
+// Load environment variables from .env BEFORE other imports
+const envPath = path.resolve(process.cwd(), '.env');
+console.log(`Loading environment from: ${envPath}`);
 const result = dotenv.config({ path: envPath });
 
 const require = createRequire(import.meta.url);
 const pdf = require('pdf-parse');
 
-const PDF_PATH =
-  '/Users/maguoqiang/Downloads/web/ClientMind AI Agent/服装电商客服知识库.pdf';
+const PDF_PATH = path.resolve(process.cwd(), '服装电商客服知识库.pdf');
 const INDEX_NAME = 'clientmind_knowledge';
 
 async function main() {

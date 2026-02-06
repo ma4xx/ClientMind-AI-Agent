@@ -277,6 +277,15 @@ export const getUserPermissions = cache(
  */
 export const hasPermission = cache(
   async (userId: string, permissionCode: string): Promise<boolean> => {
+    // Development Mock Auth
+    if (
+      process.env.MOCK_AUTH === 'true' &&
+      process.env.NODE_ENV === 'development' &&
+      userId === 'mock-user-id'
+    ) {
+      return true;
+    }
+
     const permissions = await getUserPermissions(userId);
     const permissionCodes = permissions.map((p) => p.code);
 

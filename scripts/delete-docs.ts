@@ -4,9 +4,9 @@ import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
 
-// Load environment variables from .env.local BEFORE other imports
-const envPath = path.resolve(__dirname, '../.env.local');
-console.log(`Loading .env.local from: ${envPath}`);
+// Load environment variables from .env BEFORE other imports
+const envPath = path.resolve(process.cwd(), '.env');
+console.log(`Loading environment from: ${envPath}`);
 const result = dotenv.config({ path: envPath });
 
 import { elasticClient } from '../src/lib/elastic/client';

@@ -6,16 +6,9 @@ import { db } from '@/core/db';
 import { user } from '@/config/db/schema';
 
 import { Permission, Role } from '../services/rbac';
-import { getRemainingCredits } from './credit';
-
-export interface UserCredits {
-  remainingCredits: number;
-  expiresAt: Date | null;
-}
 
 export type User = typeof user.$inferSelect & {
   isAdmin?: boolean;
-  credits?: UserCredits;
   roles?: Role[];
   permissions?: Permission[];
 };
@@ -81,12 +74,6 @@ export async function getUserInfo() {
   return signUser;
 }
 
-export async function getUserCredits(userId: string) {
-  const remainingCredits = await getRemainingCredits(userId);
-
-  return { remainingCredits };
-}
-
 export async function getSignUser() {
   // Development Mock Auth
   if (
@@ -110,21 +97,6 @@ export async function getSignUser() {
   });
 
   return session?.user;
-}
-
-export async function isEmailVerified(email: string): Promise<boolean> {
-  const normalized = String(email || '')
-    .trim()
-    .toLowerCase();
-  if (!normalized) return false;
-
-  const [row] = await db()
-    .select({ emailVerified: user.emailVerified })
-    .from(user)
-    .where(eq(user.email, normalized))
-    .limit(1);
-
-  return !!row?.emailVerified;
 }
 
 export async function appendUserToResult(result: any) {

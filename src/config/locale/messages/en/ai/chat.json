@@ -2,11 +2,11 @@
   "sidebar": {
     "header": {
       "brand": {
-        "title": "ShipAny Chat",
-        "logo": {
-          "src": "/logo.png",
-          "alt": "ShipAny Chat"
-        },
+      "title": "ClientMind Chat",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "ClientMind Chat"
+      },
         "url": "/chat"
       },
       "show_trigger": false

@@ -96,28 +96,14 @@ export async function POST(req: NextRequest) {
 
     for (let i = 0; i < chunks.length; i++) {
       const chunk = chunks[i];
-      const infer = await elasticClient.transport.request(
-        {
-          method: 'POST',
-          path: '/_inference/text_expansion/.elser_model_2_linux-x86_64',
-          body: { input: chunk },
-        },
-        { meta: true }
-      );
-      const ib: any = infer.body;
-      const embedding =
-        ib?.predicted_value ||
-        ib?.results?.[0]?.predicted_value ||
-        ib?.chunks?.[0]?.predicted_value ||
-        {};
-
+      
       await elasticClient.index({
         index: 'clientmind_knowledge',
+        pipeline: 'clientmind_chunk_processor',
         document: {
           chunk_id: `${uploadId}-${i}`,
           source: file.name,
           chunk_text: chunk,
-          content_embedding: embedding,
           metadata: {
             doc_type: meta?.doc_type || 'pdf',
             uploaded_at: new Date(),
@@ -135,10 +121,12 @@ export async function POST(req: NextRequest) {
       chunks_count: chunks.length,
     });
   } catch (error: any) {
+    console.error('Upload error details:', error);
     return NextResponse.json(
       {
         error: 'Upload failed',
-        details: 'An unexpected error occurred. Please try again later.',
+        details: error.message || 'An unexpected error occurred. Please try again later.',
+        meta: error.meta?.body || error.meta || null
       },
       { status: 500 }
     );

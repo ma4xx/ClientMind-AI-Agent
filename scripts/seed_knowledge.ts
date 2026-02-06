@@ -3,11 +3,11 @@ import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
 
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 if (!process.env.ELASTIC_CLOUD_URL || !process.env.ELASTIC_API_KEY) {
   console.error(
-    '❌ Missing ELASTIC_CLOUD_URL or ELASTIC_API_KEY in .env.local'
+    '❌ Missing ELASTIC_CLOUD_URL or ELASTIC_API_KEY in .env'
   );
   process.exit(1);
 }

@@ -1,17 +1,16 @@
 {
-  "name": "shipany-template-two",
+  "name": "clientmind-ai-agent",
   "version": "1.8.2",
   "private": true,
-  "author": "ShipAny.ai",
-  "homepage": "https://shipany.ai",
+  "author": "ClientMind AI Agent",
+  "homepage": "https://clientmind.ai",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shipanyai/shipany-template-two"
+    "url": "https://github.com/clientmind/clientmind-ai-agent"
   },
   "keywords": [
-    "shipany",
-    "shipany-two",
-    "shipany-template-two",
+    "clientmind",
+    "clientmind-ai-agent",
     "ai-saas-boilerplate",
     "ai-saas-template",
     "ai-saas-framework",
@@ -89,7 +88,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
-    "creem": "^0.3.37",
     "dotenv": "^17.2.0",
     "drizzle-orm": "^0.44.2",
     "embla-carousel-auto-scroll": "^8.6.0",
@@ -132,7 +130,6 @@
     "simple-flakeid": "^0.0.5",
     "sonner": "^2.0.7",
     "streamdown": "^1.4.0",
-    "stripe": "^18.5.0",
     "swiper": "^12.0.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",

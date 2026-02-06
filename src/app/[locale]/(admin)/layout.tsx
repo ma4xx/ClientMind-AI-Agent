@@ -29,6 +29,7 @@ export default async function AdminLayout({
   const t = await getTranslations('admin');
 
   const sidebar: SidebarType = t.raw('sidebar');
+  console.log('AdminLayout sidebar raw data:', JSON.stringify(sidebar));
 
   const configs = await getAllConfigs();
   if (configs.app_name) {

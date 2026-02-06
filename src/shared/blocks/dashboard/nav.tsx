@@ -24,6 +24,12 @@ import {
 import { NavItem, type Nav as NavType } from '@/shared/types/blocks/common';
 
 export function Nav({ nav, className }: { nav: NavType; className?: string }) {
+  console.log(
+    'Rendering Nav:',
+    nav.title,
+    'Items:',
+    JSON.stringify(nav.items.map((i) => i?.title))
+  );
   const pathname = usePathname();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);

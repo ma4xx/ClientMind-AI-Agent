@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { getThemePage } from '@/core/theme';
 import { envConfigs } from '@/config';
-import { getLocalPage } from '@/shared/models/post';
+import { getLocalPage } from '@/shared/lib/content';
 
 export const revalidate = 3600;
 

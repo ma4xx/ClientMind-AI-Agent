@@ -28,16 +28,6 @@ export const PERMISSIONS = {
   CATEGORIES_WRITE: 'admin.categories.write',
   CATEGORIES_DELETE: 'admin.categories.delete',
 
-  // Payments
-  PAYMENTS_READ: 'admin.payments.read',
-
-  // Subscriptions
-  SUBSCRIPTIONS_READ: 'admin.subscriptions.read',
-
-  // Credits
-  CREDITS_READ: 'admin.credits.read',
-  CREDITS_WRITE: 'admin.credits.write',
-
   // API Keys
   APIKEYS_READ: 'admin.apikeys.read',
   APIKEYS_WRITE: 'admin.apikeys.write',
